@@ -112,10 +112,11 @@ public class MyFileWriter {
         return randomString;
     }
 
+    // printFileSize: prints the length of the file's contents.
     private static void printFileSize(String fileName) {
         File file = new File(fileName);
         long fileSize = file.length();
-        System.out.println(fileSize);
+        System.out.println("The length of your file is: " + fileSize);
     }
 
 }

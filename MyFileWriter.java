@@ -45,5 +45,78 @@ public class MyFileWriter {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        String pass = "";
+        String secretFile = ".ultraSecretShh.txt";
+        try (FileWriter writer = new FileWriter(secretFile)) {
+            writer.write(pass);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
+
+    static String secretFile = ".ultraSecretShh.txt";
+    //static String regularFile = "/.superLowkeyFolder/notAsSecret.txt";
+    static File regularFile = new File(".superLowkeyFolder/notAsSecret.txt");
+    // generateSecretFile(): creates a secret file within FileWriterActivity.
+    // This secret file name and password is hard-coded.
+    public static void generateSecretFile() {
+        try {
+            FileWriter writer = new FileWriter(secretFile);
+            writer.write("NotGoodPassword!123");
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    // generateRandomizedSecretFile(): 
+    public static void generateRandomizedSecretFile() {
+
+    }
+
+    public static void generateFileWithCustomName(String fileName) {
+
+    }
+    public static void generateFileWithCustomPassword(String password, int passwordLength) {
+
+    }
+    public static void generateCustomFile(String fileName, String password, int passwordLength) {
+
+    }
+
+    // generateRegularFile(): creates a regular file in a secret folder within FileWriterActivity. This file name and password
+    // is also hard-coded.
+    public static void generateRegularFile() {
+        try {
+            FileWriter writer = new FileWriter(regularFile);
+            writer.write("NotGoodPasswordAgain!456");
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    // for the randomized file method; this should create a password with a specified length in the parameter.
+    // the minimum length is 14 characters, while the maximum is   
+    // only chooses characters from 33-126 (uppercase + lowercase letters, numbers 0-9, and special symbols)
+    private String randomizer(int length) {
+
+        if (length < 14 || length > 25) {
+            System.out.println("");
+        }
+
+        String randomString = "";
+        
+
+        return randomString;
+    }
+
+    // printFileSize: prints the length of the file's contents.
+    private static void printFileSize(String fileName) {
+        File file = new File(fileName);
+        long fileSize = file.length();
+        System.out.println("The length of your file is: " + fileSize);
+    }
+
 }

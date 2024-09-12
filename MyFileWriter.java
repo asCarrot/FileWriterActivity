@@ -112,4 +112,10 @@ public class MyFileWriter {
         return randomString;
     }
 
+    private static void printFileSize(String fileName) {
+        File file = new File(fileName);
+        long fileSize = file.length();
+        System.out.println(fileSize);
+    }
+
 }

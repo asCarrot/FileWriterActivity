@@ -56,33 +56,45 @@ public class MyFileWriter {
 
     }
 
-    static String secretFile = ".ultraSecretShh.txt";
-    //static String regularFile = "/.superLowkeyFolder/notAsSecret.txt";
+    static String secretFile = "ultraSecretShh";
     static File regularFile = new File(".superLowkeyFolder/notAsSecret.txt");
     // generateSecretFile(): creates a secret file within FileWriterActivity.
     // This secret file name and password is hard-coded.
     public static void generateSecretFile() {
+        generateCustomFile(secretFile, "NotGoodPassword!123");
+    }
+
+    // generateRandomizedSecretFile(): creates a secret file within FileWriterActivity.
+    // This secret file name is hard-coded, but its password is (should be) randomized by a helper method.
+    // The randomized password is always set to have the max length (25).
+    public static void generateRandomizedSecretFile() {
+        generateCustomFile("GigaSecretFile", randomizer(25));
+    }
+
+    // generateFileWithCustomName(String): creates a secret file within FileWriterActivity.
+    // This secret file name is decided by the parameter, meaning that it's customized. The password is hard-coded.
+    // ps: please don't put void into these parameters, since I'm too lazy to add edge-cases right now.
+    public static void generateFileWithCustomName(String fileName) {
+        generateCustomFile(fileName, "AnotherBadPassword!789");
+    }
+
+    // generateFileWithCustomPassword(String): creates a secret file within FileWriterActivity.
+    // This secret file name is hard-coded, and its password is decided by the user's input for the parameter (it's customized).
+    public static void generateFileWithCustomPassword(String password) {
+        generateCustomFile("MegaSecretFile", password);
+    }
+
+    // generateCustomFile(): creates a secret file within FileWriterActivity.
+    // Both its file name and password are decided by the user's input for the parameter
+    public static void generateCustomFile(String fileName, String password) {
+        String customSecretFile = ("." + fileName + ".txt");
         try {
-            FileWriter writer = new FileWriter(secretFile);
-            writer.write("NotGoodPassword!123");
+            FileWriter writer = new FileWriter(customSecretFile);
+            writer.write(password);
             writer.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-    // generateRandomizedSecretFile(): 
-    public static void generateRandomizedSecretFile() {
-
-    }
-
-    public static void generateFileWithCustomName(String fileName) {
-
-    }
-    public static void generateFileWithCustomPassword(String password, int passwordLength) {
-
-    }
-    public static void generateCustomFile(String fileName, String password, int passwordLength) {
-
     }
 
     // generateRegularFile(): creates a regular file in a secret folder within FileWriterActivity. This file name and password
@@ -98,27 +110,29 @@ public class MyFileWriter {
     }
 
     // for the randomized file method; this should create a password with a specified length in the parameter.
-    // the minimum length is 14 characters, while the maximum is   
+    // minimum length: 14 characters || maximum length: 25 characters -> if the target length doesn't meet these requirements,
+    //... it will change the length to the closest "valid" number. (Doesn't throw errors when length doesn't meet requirements.)
     // only chooses characters from 33-126 (uppercase + lowercase letters, numbers 0-9, and special symbols)
-    private String randomizer(int length) {
-
-        if (length < 14 || length > 25) {
-            System.out.println("");
+    private static String randomizer(int length) {
+        if (length < 14) {
+            System.out.println("Input length is too low, making password with length 14 instead... ");
+            length = 14;
+        } else if (length > 25) {
+            System.out.println("Input length is too low, making password with length 14 instead... ");
+            length = 25;
         }
-
         String randomString = "";
-        
-
+        for (int i = 0; i < length; i++) {
+            char randomChar = (char)((int)((Math.random() * 93) + 33));
+            randomString += String.valueOf(randomChar);
+        }
         return randomString;
     }
 
     // printFileSize: prints the length of the file's contents.
-    private static void printFileSize(String fileName) {
+    public static void printFileSize(String fileName) {
         File file = new File(fileName);
         long fileSize = file.length();
         System.out.println("The length of your file is: " + fileSize);
     }
-
 }
-
-// hi
